@@ -1,0 +1,10 @@
+parameters:
+    propel:
+        datasource: 'default'
+        adapter: 'mysql'
+        host: 'localhost'
+        dbname: 'db_name'
+        user: 'user'
+        password: 'secret'
+nette:
+    database:
