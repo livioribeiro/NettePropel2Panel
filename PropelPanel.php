@@ -61,6 +61,10 @@ class PropelPanel extends AbstractHandler implements Nette\Diagnostics\IBarPanel
             'query' => $query
         ];
     }
+    
+    public function logError($message) {
+        $this->queries[] = ['time' => '', 'memory' => '', 'query' => trim($message)];
+    }
 
     public function getTab() {
         return '<span title="Datasource: ' . htmlSpecialChars($this->name) . '">'
@@ -136,7 +140,12 @@ class PropelPanel extends AbstractHandler implements Nette\Diagnostics\IBarPanel
     }
 
     public function handle(array $record) {
-        $this->logQuery($record['message']);
+        if ($record['level'] == \Monolog\Logger::INFO) {
+            $this->logQuery($record['message']);
+        }
+        else {
+            $this->logError($record['message']);
+        }
     }
 
 }
